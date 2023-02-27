@@ -17,4 +17,7 @@ class CustomTable extends Model
     public function customfield(){
         return $this->hasMany(CustomField::class);
     }
+    public function strukturtable(){
+        return $this->hasMany(StrukturTable::class);
+    }
 }

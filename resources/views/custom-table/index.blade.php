@@ -29,6 +29,7 @@
                         <th>Judul Table</th>
                         <th>Deskripsi</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +39,7 @@
                         <td>{{$item->title}}</td>
                         <td>{{$item->description}}</td>
                         <td>{{$item->is_published}}</td>
+                        <td><a href="{{route('StructureTableController-index',$item->id)}}">Create Structure Table</td>
                     </tr>
                     @endforeach
                 </tbody>

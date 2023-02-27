@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{CustomtableController, 
                             CustomfieldController,
                             CustomValuedController,
+                            CreateTableController,
+                            TypeDataController,
+                            TypeFormInputController,
+                            StructureTableController,
                         };
 
 /*
@@ -22,7 +26,15 @@ use App\Http\Controllers\{CustomtableController,
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('createTable', CreateTableController::class);
 Route::resource('customField', CustomfieldController::class);
 Route::resource('customTable', CustomtableController::class);
 Route::resource('customValue', CustomValuedController::class);
+Route::resource('typeData', TypeDataController::class);
+Route::resource('typeFormInput', TypeFormInputController::class);
+Route::resource('structureTable', StructureTableController::class);
+
+Route::get('/structureTables/{id}/index', [StructureTableController::class, 'index'])->name('StructureTableController-index');
+Route::get('/structureTables/{id}/generate', [StructureTableController::class, 'generateTable'])->name('StructureTable-generateTable');
+
 // Route::resource('schedule', ScheduleController::class)->middleware(['can:view schedule']);
