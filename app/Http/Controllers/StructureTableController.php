@@ -125,31 +125,23 @@ class StructureTableController extends Controller
     }
     public function generateTable($id)
     {
-        // dd($id);
         $table=CustomTable::find($id);
-        // dd($table);
         $tableName =strtolower(str_replace(" ", "_", $table->title));
-        dd($tableName);
+        
+        $structureTables=StrukturTable::where('table_id',$id)->get();
+        // dd($structureTables);
+        // dd($structureTables);
 
-        $validatedData = $request->validate([
-            'table_name' => 'required|string',
-            'column_names' => 'required|array',
-            'column_types' => 'required|array',
-        ]);
-
-        $tableName = $validatedData['table_name'];
-        $columnNames = $validatedData['column_names'];
-        $columnTypes = $validatedData['column_types'];
 
         // Buat tabel baru dengan kolom yang diberikan
-        Schema::create($tableName, function (Blueprint $table) use ($columnNames, $columnTypes) {
+        Schema::create($tableName, function (Blueprint $table) {
             // Kolom id sebagai primary key
             $table->id();
 
             // Looping untuk menambahkan kolom sesuai dengan data yang diberikan
-            for ($i = 0; $i < count($columnNames); $i++) {
-                $columnName = $columnNames[$i];
-                $columnType = $columnTypes[$i];
+            foreach ($structureTables as $structureTable){
+                $columnType=$structureTable->type_data;
+                $columnName=strtolower(str_replace(" ", "_", $structureTable->name));
 
                 $table->$columnType($columnName);
             }
